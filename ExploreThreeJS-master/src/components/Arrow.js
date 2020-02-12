@@ -50,6 +50,7 @@ export default class Arrow extends Component {
 
     let coneGeometry = new THREE.CylinderGeometry(0, 2, 3, 1000, 1);
     coneGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, 6, 0));
+    
 
 
     this.line = new THREE.Mesh(cylinderGeometry, lineMaterial);
