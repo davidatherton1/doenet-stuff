@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { DragControls } from "./controls/DragControls";
 import Arrow from "./components/Arrow";
 
 const style = {
@@ -15,6 +16,8 @@ class App extends Component {
     this.sceneSetup = this.sceneSetup.bind(this);
 
     this.sceneSetup();
+
+    this.objects = [];
     
   }
   componentDidMount() {
@@ -27,7 +30,7 @@ class App extends Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleWindowResize);
     window.cancelAnimationFrame(this.requestID);
-    this.controls.dispose();
+    // this.controls.dispose();
   }
 
   // Standard scene setup in Three.js. Check "Creating a scene" manual for more information
@@ -54,6 +57,9 @@ class App extends Component {
     // OrbitControls allow a camera to orbit around the object
     // https://threejs.org/docs/#examples/controls/OrbitControls
     this.controls = new OrbitControls(this.camera, this.el);
+    this.dragContols = new DragControls( this.objects, this.camera, this.el, this.controls );
+    // this.dragContols.set()
+
     this.renderer = new THREE.WebGLRenderer({antialias:true});
     // this.renderer = new THREE.WebGLRenderer({});
     this.renderer.setClearColor("#FFFFFF");
@@ -105,8 +111,10 @@ class App extends Component {
   };
 
   render() {
+
+
     return <div style={style} ref={ref => (this.el = ref)} >
-      <Arrow scene={this.scene} />
+      <Arrow scene={this.scene} objects={this.objects} />
       </div>;
   }
 }
