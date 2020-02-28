@@ -56,8 +56,8 @@ class App extends Component {
     // this.camera.position.x = 10; // is used here to set some distance from a cube that is located at z = 0
     // OrbitControls allow a camera to orbit around the object
     // https://threejs.org/docs/#examples/controls/OrbitControls
-    this.controls = new OrbitControls(this.camera, this.el);
-    this.dragContols = new DragControls( this.objects, this.camera, this.el, this.controls );
+    // this.controls = new OrbitControls(this.camera, this.el);
+    this.dragContols = new DragControls( this.objects, this.camera, this.el );
     // this.dragContols.set()
 
     this.renderer = new THREE.WebGLRenderer({antialias:true});

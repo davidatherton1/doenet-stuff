@@ -31,10 +31,10 @@ export default class Arrow extends Component {
   
 
     this.arrow = new THREE.Object3D();//Initializes skeleton for Arrow as a custom three object
-
+    let new_geometry = new THREE.Geometry();
     //Line
-    var cylinderGeometry = new THREE.CylinderGeometry(1,1,1, 1000);
-    cylinderGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -.6, 0));
+    var cylinderGeometry = new THREE.CylinderGeometry(1,1,5, 1000);
+    cylinderGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, -3, 0));
     let lineMaterial = new THREE.MeshBasicMaterial({color: color});
     this.line = new THREE.Mesh(cylinderGeometry, lineMaterial);
     this.line.scale.set(lineWidth, 5, lineWidth);
@@ -44,10 +44,15 @@ export default class Arrow extends Component {
     let coneMaterial = new THREE.MeshBasicMaterial({color: color});
     this.cone = new THREE.Mesh(coneGeometry, coneMaterial);
     // coneGeometry.applyMatrix(new THREE.Matrix4().makeTranslation(0, 5, 0));
+    let cylinderMesh = new THREE.Mesh(cylinderGeometry);
+    let coneMesh = new THREE.Mesh(coneGeometry);
 
+    cylinderMesh.updateMatrix();
+    new_geometry.merge(cylinderMesh.geometry, cylinderMesh.matrix);
+    coneMesh.updateMatrix();
+    new_geometry.merge(coneMesh.geometry, coneMesh.matrix);
+    this.arrow = new THREE.Mesh(new_geometry, lineMaterial);
 
-    this.arrow.add(this.line);
-    this.arrow.add(this.cone);
     this.arrow.rotation.set(Math.PI,0,0);
 
     // this.state = {
@@ -57,7 +62,7 @@ export default class Arrow extends Component {
     props.scene.add(this.arrow);
 
     props.objects.push(this.arrow);
-
+    console.log(props.objects);
     // this.arrow.position.set(1,0,0);
     // this.arrow.applyMatrix(new THREE.Matrix4().makeTranslation(0, 0, 0));
 

@@ -13,7 +13,7 @@ import {
 	Vector3
 } from "three/build/three.module.js";
 
-var DragControls = function ( _objects, _camera, _domElement, _orbitControls ) {
+var DragControls = function ( _objects, _camera, _domElement ) {
 
 	var _plane = new Plane();
 	var _raycaster = new Raycaster();
@@ -87,7 +87,7 @@ var DragControls = function ( _objects, _camera, _domElement, _orbitControls ) {
 
 		_raycaster.setFromCamera( _mouse, _camera );
 
-		var intersects = _raycaster.intersectObjects( _objects, true );
+		var intersects = _raycaster.intersectObjects( _objects, true);
 
 		if ( intersects.length > 0 ) {
 
